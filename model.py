@@ -1,7 +1,13 @@
 from tensorflow import keras
 
 
-def _conv_block(input_layer, n_filters, pool=True, noise_stddev=None, padding='same'):
+def _conv_block(
+    input_layer,
+    n_filters,
+    pool=True,
+    noise_stddev=None,
+    padding='same'
+):
     x = keras.layers.Conv2D(
         filters=n_filters, kernel_size=5, padding=padding
     )(input_layer)

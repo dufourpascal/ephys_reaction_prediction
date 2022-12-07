@@ -51,7 +51,8 @@ def plot_group(x, y, groups, group_id, img_dir):
     n_cols = int(4)
     step = math.floor(n_samples / n_imgs)
 
-    fig, axs = plt.subplots(nrows=n_rows, ncols=n_cols, constrained_layout=True)
+    fig, axs = plt.subplots(nrows=n_rows, ncols=n_cols,
+                            constrained_layout=True)
     fig.set_size_inches(w=10, h=20)
 
     idx_plot = 1
