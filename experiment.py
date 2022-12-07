@@ -3,7 +3,6 @@ from dataset import Dataset
 import numpy as np
 from mlflow.keras import autolog
 from mlflow import log_params, start_run, end_run
-# from mlflow import log_metric, log_param, log_artifacts
 
 
 def predict_on_groups(m, xt, yt, gt):
@@ -25,11 +24,12 @@ def predict_on_groups(m, xt, yt, gt):
 def run_experiment(
     model_name,
     mlflow_log=True,
-    log_scale=False,
+    log_scale=True,
     epochs=16,
     batch_size=32,
     verbose=1,
     batch_norm=False,
+    optimizer='adam',
     n_filters=(4, 4, 8, 16),
     n_dense=(32,),
     data_augmentation_args={'enabled': False},
@@ -69,9 +69,9 @@ def run_experiment(
     m.summary()
 
     m.compile(
-        optimizer="adam",
-        loss="sparse_categorical_crossentropy",
-        metrics=["sparse_categorical_accuracy"],
+        optimizer=optimizer,
+        loss='sparse_categorical_crossentropy',
+        metrics=['sparse_categorical_accuracy'],
     )
     if mlflow_log:
         start_run()
@@ -94,33 +94,5 @@ def run_experiment(
     )
 
     predict_on_groups(m, xt, yt, gt)
-    end_run()
-
-
-if __name__ == '__main__':
-    epochs = 16
-    batch_size = 32
-    mlflow_log = True
-    log_scale = True
-    batch_norm = False
-    n_filters = (4, 8, 8, 16)
-    n_dense = (128, 64)
-    data_augmentation_args = {
-        'enable': True,
-        'noise_stddev': 0.25,
-        'scale_min': 0.5,
-        'scale_max': 2.0,
-    }
-
-    run_experiment(
-        model_name='pretraining_generic',
-        mlflow_log=mlflow_log,
-        log_scale=log_scale,
-        epochs=epochs,
-        batch_size=batch_size,
-        verbose=1,
-        batch_norm=batch_norm,
-        n_filters=n_filters,
-        n_dense=n_dense,
-        data_augmentation_args=data_augmentation_args
-    )
+    if mlflow_log:
+        end_run()

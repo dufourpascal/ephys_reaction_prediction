@@ -86,8 +86,10 @@ class DataGenerator(keras.utils.Sequence):
         else:
             start_w = offset
 
-        x0 = self.x0[idx_data_start:idx_data_end, :, start_w:start_w + width, :]
-        x1 = self.x1[idx_data_start:idx_data_end, :, start_w:start_w + width, :]
+        x0 = self.x0[idx_data_start:idx_data_end, :,
+                     start_w:start_w + width, :]
+        x1 = self.x1[idx_data_start:idx_data_end, :,
+                     start_w:start_w + width, :]
 
         y = np.zeros((self.batch_size))
         y[:batch_size_data] = 0.0
