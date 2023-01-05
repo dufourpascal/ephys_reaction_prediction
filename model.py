@@ -50,6 +50,7 @@ def make_model(
     for dense in n_dense:
         x = keras.layers.Dense(dense)(x)
 
+    # out = keras.layers.Dense(2, activation='softmax')(x)
     out = keras.layers.Dense(2, activation='softmax')(x)
 
     return keras.models.Model(inputs=input, outputs=out)
